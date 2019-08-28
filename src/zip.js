@@ -6,10 +6,12 @@ var write = require('./write'),
 module.exports = function(gj, options) {
 
     var zip = new JSZip(),
-        layers = zip.folder(options && options.folder ? options.folder : 'layers');
-    
-    // if options.folder is set to false, zip files without a folder
-    if (options && options.folder === false) {
+        layers;
+
+    // if options.folder is set, zip to a folder with that name
+    if (options && options.folder && typeof options.folder === 'string') {
+        layers = zip.folder(options.folder);
+    } else {
         layers = zip;
     }
 
