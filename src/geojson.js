@@ -16,7 +16,7 @@ function justType(type, TYPE, just3D) {
         var geometries;
         var properties;
         
-        if (type === 'MultiLineString') {
+        if (type === 'MultiLineString' || type === 'MultiPoint') {
             var multiGeometries = oftype.map(justCoordsMulti);
             geometries = [].concat.apply([], multiGeometries);
             
