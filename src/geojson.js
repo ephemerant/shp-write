@@ -17,13 +17,13 @@ function justType(type, TYPE, just3D) {
         var properties;
         
         if (type === 'MultiLineString' || type === 'MultiPoint') {
-            var multiGeometries = oftype.map(justCoordsMulti);
+            var multiGeometries = ofDimension.map(justCoordsMulti);            
             geometries = [].concat.apply([], multiGeometries);
             
             var multiProperties = ofDimension.map(justPropsMulti);
             properties = [].concat.apply([], multiProperties);
         } else {
-            geometries = oftype.map(justCoords);
+            geometries = (TYPE === 'POLYGON' || TYPE === 'POLYLINE' || TYPE === 'POLYGONZ' || TYPE === 'POLYLINEZ') ? [ofDimension.map(justCoords)] : ofDimension.map(justCoords),
             properties = ofDimension.map(justProps);
         }
         
@@ -36,7 +36,7 @@ function justType(type, TYPE, just3D) {
 }
 
 function justCoords(t) {
-    return [t.geometry.coordinates]; //  change this after we are done testings
+    return t.geometry.coordinates;
 }
 
 function justCoordsMulti(t) {    
