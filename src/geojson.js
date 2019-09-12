@@ -13,15 +13,14 @@ function justType(type, TYPE, just3D) {
     return function(gj) { 
         var oftype = gj.features.filter(isType(type));        
         var ofDimension = oftype.filter(isOfDimension(TYPE, just3D));
-       
-        let geometries;
-        let properties;
+        var geometries;
+        var properties;
         
         if (type === 'MultiLineString') {
-            const multiGeometries = oftype.map(justCoordsMulti);
+            var multiGeometries = oftype.map(justCoordsMulti);
             geometries = [].concat.apply([], multiGeometries);
             
-            const multiProperties = ofDimension.map(justPropsMulti);
+            var multiProperties = ofDimension.map(justPropsMulti);
             properties = [].concat.apply([], multiProperties);
         } else {
             geometries = oftype.map(justCoords);
@@ -51,7 +50,7 @@ function justProps(t) {
 }
 
 function justPropsMulti(t) {
-    const propsArr = [];
+    var propsArr = [];
     
     t.geometry.coordinates.forEach(function() {        
         propsArr.push(t.properties);
