@@ -26,7 +26,10 @@ describe('geojson', function() {
             const idealResult = {
                 geometries: [
                     [
-                        [2.2945064306259155,48.85825817805569],
+                        [
+                            2.2945064306259155,
+                            48.85825817805569
+                        ],
                     ]
                 ],
                 properties: [{
@@ -40,7 +43,7 @@ describe('geojson', function() {
     });
     
     describe('#pointZ', function() {
-        it.skip('should return coordinates, properties, and type', function() {
+        it('should return coordinates, properties, and type', function() {
             const result = geojson.pointZ(gjPointZ);
             
             const idealResult = {
@@ -60,16 +63,18 @@ describe('geojson', function() {
     });
     
     describe('#multipoint', function() {
-        it.skip('should return coordinates, properties, and type', function() {
+        it('should return coordinates, properties, and type', function() {
             const result = geojson.multipoint(gjMultiPoint);
             
             const idealResult = {
                 geometries: [
                     [
                         [
-                            2.2945064306259155,
+                            2.2945064306259155, 
                             48.85825817805569
                         ],
+                    ],
+                    [
                         [
                             2.312525510787964,
                             48.854991630542706
@@ -77,6 +82,9 @@ describe('geojson', function() {
                     ]
                 ],
                 properties: [{
+                    name: 'MultiPoint-Name'
+                },
+                {
                     name: 'MultiPoint-Name'
                 }],
                 type: 'MULTIPOINT'
@@ -87,7 +95,7 @@ describe('geojson', function() {
     });
     
     describe('#multipointZ', function() {
-        it.skip('should return coordinates, properties, and type', function() {
+        it('should return coordinates, properties, and type', function() {
             const result = geojson.multipointZ(gjMultiPointZ);
             
             const idealResult = {
@@ -98,6 +106,8 @@ describe('geojson', function() {
                             48.85825817805569,
                             75
                         ],
+                    ],
+                    [
                         [
                             2.312525510787964,
                             48.854991630542706,
@@ -106,6 +116,9 @@ describe('geojson', function() {
                     ]
                 ],
                 properties: [{
+                    name: 'MultiPointZ-Name'
+                },
+                {
                     name: 'MultiPointZ-Name'
                 }],
                 type: 'MULTIPOINTZ'
@@ -145,68 +158,8 @@ describe('geojson', function() {
     });
     
     describe('#linestringZ', function() {
-        it.skip('should return coordinates, properties, and type', function() {
-            const result = geojson.line(gjLineStringZ);
-            
-            const idealResult = {
-                geometries: [
-                    [
-                        [
-                            [
-                                -120.861132144928,
-                                37.52547739205533,
-                                200
-                            ],
-                            [
-                                -120.85253834724426,
-                                37.525460374347695,
-                                250
-                            ]
-                        ]
-                    ]
-                ],
-                properties: [{
-                    name: 'LineStringZ-Name'
-                }],
-                type: 'POLYLINEZ'
-            };
-            
-            expect(result).to.eql(idealResult);
-        });
-    });
-    
-    describe('#linestring', function() {
         it('should return coordinates, properties, and type', function() {
-            const result = geojson.line(gjLineString);
-            
-            const idealResult = {
-                geometries: [
-                    [
-                        [
-                            [
-                                -120.861132144928,
-                                37.52547739205533
-                            ],
-                            [
-                                -120.85253834724426,
-                                37.525460374347695
-                            ]
-                        ]
-                    ]
-                ],
-                properties: [{
-                    name: 'LineString-Name'
-                }],
-                type: 'POLYLINE'
-            };
-            
-            expect(result).to.eql(idealResult);
-        });
-    });
-    
-    describe('#linestringZ', function() {
-        it.skip('should return coordinates, properties, and type', function() {
-            const result = geojson.line(gjLineStringZ);
+            const result = geojson.lineZ(gjLineStringZ);
             
             const idealResult = {
                 geometries: [
@@ -314,7 +267,7 @@ describe('geojson', function() {
     });
     
     describe('#multilinestringZ', function() {
-        it.skip('should return coordinates, properties, and type', function() {
+        it('should return coordinates, properties, and type', function() {
             const result = geojson.multilineZ(gjMultiLineStringZ);
             
             const idealResult = {
@@ -429,7 +382,7 @@ describe('geojson', function() {
     });
     
     describe('#polygonZ', function() {
-        it.skip('should return coordinates, properties, and type', function() {
+        it('should return coordinates, properties, and type', function() {
             const result = geojson.polygonZ(gjPolygonZ);
             
             const idealResult = {
