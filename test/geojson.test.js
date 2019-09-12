@@ -95,7 +95,7 @@ describe('geojson', function() {
     });
     
     describe('#multipointZ', function() {
-        it('should return coordinates, properties, and type', function() {
+        it.skip('should return coordinates, properties, and type', function() {
             const result = geojson.multipointZ(gjMultiPointZ);
             
             const idealResult = {
