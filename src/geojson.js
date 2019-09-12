@@ -4,34 +4,59 @@ module.exports.multipoint = justType('MultiPoint', 'MULTIPOINT', false);
 module.exports.multipointZ = justType('MultiPoint', 'MULTIPOINTZ', true);
 module.exports.line = justType('LineString', 'POLYLINE', false);
 module.exports.lineZ = justType('LineString', 'POLYLINEZ', true);
+module.exports.multiline = justType('MultiLineString', 'POLYLINE', false);
+module.exports.multilineZ = justType('MultiLineString', 'POLYLINEZ', true);
 module.exports.polygon = justType('Polygon', 'POLYGON', false);
 module.exports.polygonZ = justType('Polygon', 'POLYGONZ', true);
 
 function justType(type, TYPE, just3D) {
-    return function(gj) {
-        var oftype = gj.features.filter(isType(type));
+    return function(gj) { 
+        var oftype = gj.features.filter(isType(type));        
         var ofDimension = oftype.filter(isOfDimension(TYPE, just3D));
-
+        var geometries;
+        var properties;
+        
+        if (type === 'MultiLineString') {
+            var multiGeometries = oftype.map(justCoordsMulti);
+            geometries = [].concat.apply([], multiGeometries);
+            
+            var multiProperties = ofDimension.map(justPropsMulti);
+            properties = [].concat.apply([], multiProperties);
+        } else {
+            geometries = oftype.map(justCoords);
+            properties = ofDimension.map(justProps);
+        }
+        
         return {
-            geometries: (TYPE === 'POLYGON' || TYPE === 'POLYLINE' || TYPE === 'POLYGONZ' || TYPE === 'POLYLINEZ') ? [ofDimension.map(justCoords)] : ofDimension.map(justCoords),
-            properties: ofDimension.map(justProps),
+            geometries: geometries,
+            properties: properties,
             type: TYPE
         };
     };
 }
 
 function justCoords(t) {
-    if (t.geometry.coordinates[0] !== undefined &&
-        t.geometry.coordinates[0][0] !== undefined &&
-        t.geometry.coordinates[0][0][0] !== undefined) {
-        return t.geometry.coordinates[0];
-    } else {
-        return t.geometry.coordinates;
-    }
+    return [t.geometry.coordinates]; //  change this after we are done testings
+}
+
+function justCoordsMulti(t) {    
+    return t.geometry.coordinates.map(function(coords) {
+        return [coords];
+    });
 }
 
 function justProps(t) {
     return t.properties;
+}
+
+function justPropsMulti(t) {
+    var propsArr = [];
+    
+    t.geometry.coordinates.forEach(function() {        
+        propsArr.push(t.properties);
+    });
+    
+    return propsArr;
 }
 
 function isType(t) {
