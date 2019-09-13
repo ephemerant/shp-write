@@ -16,15 +16,15 @@ module.exports = function(gj, options) {
     }
     
     [
-        geojson.point(gj), 
-        geojson.multipoint(gj), 
-        geojson.line(gj), 
-        geojson.multiline(gj), 
-        geojson.polygon(gj), 
-        geojson.pointZ(gj), 
-        geojson.multipointZ(gj), 
+        geojson.point(gj),
+        geojson.multipoint(gj),
+        geojson.line(gj),
+        geojson.multiline(gj),
+        geojson.polygon(gj),
+        geojson.pointZ(gj),
+        geojson.multipointZ(gj),
         geojson.lineZ(gj),
-        // geojson.multilineZ(gj), 
+        geojson.multilineZ(gj),
         geojson.polygonZ(gj)
     ]
         .forEach(function(l) {
