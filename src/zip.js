@@ -46,11 +46,14 @@ module.exports = function(gj, options) {
         }
     });
 
-    var generateOptions = { compression:'STORE' };
+    var generateOptions = { 
+        compression:'STORE', 
+        type: (options && options.type) || 'base64'
+    };
 
     if (!process.browser) {
       generateOptions.type = 'nodebuffer';
     }
 
-    return zip.generate(generateOptions);
+    return zip.generateAsync(generateOptions);
 };

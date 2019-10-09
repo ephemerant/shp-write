@@ -166,7 +166,8 @@ function justCoords(coords, l) {
     if (l === undefined) l = [];
     if (typeof coords[0][0] == 'object') {
         return coords.reduce(function(memo, c) {
-            return memo.concat(justCoords(c));
+            Array.prototype.push.apply(memo, justCoords(c));
+            return memo;
         }, l);
     } else {
         return coords;
