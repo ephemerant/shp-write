@@ -1,4 +1,4 @@
-/* 
+/*
 node example/zip/test_multiple_polyZ.js
 */
 // ! broken
@@ -13,8 +13,12 @@ var zipOptions = {
     },
 };
 
-const base64String = zip(multiPolygonZGeojson, zipOptions);
-
-fs.writeFile('test_multiple_polyZ.shp.zip', base64String, {encoding: 'base64'}, function(err) {
-    console.log('File created');
+zip(multiPolygonZGeojson, zipOptions).then(base64String => {
+  fs.writeFile('test_multiple_polyZ.shp.zip', base64String, {encoding: 'base64'}, function(err) {
+    if (err) {
+      console.log('Error', err);
+    } else {
+      console.log('File created');
+    }
+  });
 });

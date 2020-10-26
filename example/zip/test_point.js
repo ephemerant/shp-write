@@ -1,4 +1,4 @@
-/* 
+/*
 node example/zip/test_point.js
 */
 var zip = require('../../src/zip'),
@@ -12,8 +12,12 @@ var zipOptions = {
     },
 };
 
-const base64String = zip(pointGeojson, zipOptions);
-
-fs.writeFile('test_point.shp.zip', base64String, {encoding: 'base64'}, function(err) {
-    console.log('File created');
+zip(pointGeojson, zipOptions).then(base64String => {
+  fs.writeFile('test_point.shp.zip', base64String, {encoding: 'base64'}, function(err) {
+    if (err) {
+      console.log('Error', err);
+    } else {
+      console.log('File created');
+    }
+  });
 });

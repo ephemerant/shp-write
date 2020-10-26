@@ -1,20 +1,20 @@
 /*
-node example/zip/test_linestring.js
+node example/zip/test_multiplePolygonsBugZ.js
 */
 var zip = require('../../src/zip'),
   fs = require('fs');
 
-var linestringGeojson = require('../../test/geojson/LineString.json');
+var multiplePolygonsBugGeojson = require('../../test/geojson/multiplePolygonsZ.json');
 
 var zipOptions = {
   types: {
-    polyline: 'polyline',
+    polygonz: 'polygonz',
   },
 };
 
-zip(linestringGeojson, zipOptions).then((base64String) => {
+zip(multiplePolygonsBugGeojson, zipOptions).then((base64String) => {
   fs.writeFile(
-    'test_linestring.shp.zip',
+    'test_multiplePolygonsBugZ.shp.zip',
     base64String,
     { encoding: 'base64' },
     function (err) {

@@ -1,4 +1,4 @@
-/* 
+/*
 node example/zip/test_multi_pointZ.js
 */
 // ! broken
@@ -13,8 +13,12 @@ var zipOptions = {
     },
 };
 
-const base64String = zip(multiPointZGeojson, zipOptions);
-
-fs.writeFile('test_multi_pointZ.shp.zip', base64String, {encoding: 'base64'}, function(err) {
-    console.log('File created');
+zip(multiPointZGeojson, zipOptions).then(base64String => {
+  fs.writeFile('test_multi_pointZ.shp.zip', base64String, {encoding: 'base64'}, function(err) {
+    if (err) {
+      console.log('Error', err);
+    } else {
+      console.log('File created');
+    }
+  });
 });

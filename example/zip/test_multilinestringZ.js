@@ -1,4 +1,4 @@
-/* 
+/*
 node example/zip/test_multilinestringZ.js
 */
 // ! broken
@@ -13,8 +13,12 @@ var zipOptions = {
     },
 };
 
-const base64String = zip(multiLineStringZGeojson, zipOptions);
-
-fs.writeFile('test_multilinestringZ.shp.zip', base64String, {encoding: 'base64'}, function(err) {
-    console.log('File created');
+zip(multiLineStringZGeojson, zipOptions).then(base64String => {
+  fs.writeFile('test_multilinestringZ.shp.zip', base64String, {encoding: 'base64'}, function(err) {
+    if (err) {
+      console.log('Error', err);
+    } else {
+      console.log('File created');
+    }
+  });
 });

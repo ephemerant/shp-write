@@ -93,6 +93,21 @@ arrays, generate a shapfile and call the callback with `err` and an object with
 Generate a ArrayBuffer of a zipped shapefile, dbf, and prj, from a GeoJSON
 object.
 
+## Testing
+
+### Write
+
+Run `node ./example/test.js` to generate shp, shx, dbf, files of every geometry type.
+
+Run `node ./example/test_linestring.js` to generate shp, shx, dbf, files for a linestring.
+
+
+### Zip
+
+Run `node ./example/zip/test_zip.js` to generate example zips of every geometry type.
+
+Run `node ./example/zip/test_linestring.js` to generate a zip for a linestring.
+
 ## Other Implementations
 
 * https://code.google.com/p/pyshp/
