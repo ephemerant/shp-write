@@ -29,7 +29,9 @@ function write(rows, geometry_type, geometries, callback) {
     var TYPE = types.geometries[geometry_type],
         writer = writers[TYPE],
         parts = writer.parts(geometries, TYPE),
-        shpLength = 44 + (4 * parts) + writer.shpLength(geometries, TYPE) + (writer.shpLength(geometries, TYPE) + 16 + (8 * geometries.length)), 
+        // shpLength is the total length of the SHP file in 16-bit words
+        shpLength = 44 + (4 * parts) + writer.shpLength(geometries, TYPE) + (writer.shpLength(geometries, TYPE) + 16 + (8 * geometries.length)),
+        // shxLength is the total length of the SHX file in 16-bit words
         shxLength = 100 + writer.shxLength(geometries),
         shpBuffer = new ArrayBuffer(shpLength),
         shpView = new DataView(shpBuffer),
@@ -37,8 +39,8 @@ function write(rows, geometry_type, geometries, callback) {
         shxView = new DataView(shxBuffer),
         extent = writer.extent(geometries);
 
-    writeHeader(shpView, TYPE);
-    writeHeader(shxView, TYPE);
+    writeFileHeader(shpView, TYPE);
+    writeFileHeader(shxView, TYPE);
     writeExtent(extent, shpView);
     writeExtent(extent, shxView);
 
@@ -60,7 +62,7 @@ function write(rows, geometry_type, geometries, callback) {
     });
 }
 
-function writeHeader(view, TYPE) {
+function writeFileHeader(view, TYPE) {
     view.setInt32(0, 9994);
     view.setInt32(28, 1000, true);
     view.setInt32(32, TYPE, true);
