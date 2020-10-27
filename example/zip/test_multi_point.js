@@ -4,7 +4,7 @@ node example/zip/test_multi_point.js
 var zip = require('../../src/zip'),
     fs = require('fs');
 
-var multiPointGeojson = require('../../test/geojson/MultiPoint.json');
+var multiPointGeojson = require('../../test/geojson/MultiPoint-2d-single.json');
 
 var zipOptions = {
     types: {

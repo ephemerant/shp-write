@@ -101,12 +101,18 @@ Run `node ./example/test.js` to generate shp, shx, dbf, files of every geometry 
 
 Run `node ./example/test_linestring.js` to generate shp, shx, dbf, files for a linestring.
 
-
 ### Zip
 
 Run `node ./example/zip/test_zip.js` to generate example zips of every geometry type.
 
 Run `node ./example/zip/test_linestring.js` to generate a zip for a linestring.
+
+### Test geojson files
+
+The files are named with the following format.
+`${geojson geometry type}-${dimensionality}-${single or multiple features in feature collection?}`
+
+The idea here is to provide a comprehensive list of geojson featureCollections that are supported
 
 ## Other Implementations
 

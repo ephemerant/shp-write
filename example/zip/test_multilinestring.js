@@ -4,7 +4,7 @@ node example/zip/test_multilinestring.js
 var zip = require('../../src/zip'),
     fs = require('fs');
 
-var multiLineStringGeojson = require('../../test/geojson/MultiLineString.json');
+var multiLineStringGeojson = require('../../test/geojson/MultiLineString-2d-single.json');
 
 var zipOptions = {
     types: {

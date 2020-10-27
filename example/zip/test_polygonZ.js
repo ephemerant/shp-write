@@ -4,7 +4,7 @@ node example/zip/test_polygonZ.js
 var zip = require('../../src/zip'),
     fs = require('fs');
 
-var polygonZGeojson = require('../../test/geojson/PolygonZ.json');
+var polygonZGeojson = require('../../test/geojson/Polygon-3d-single.json');
 
 var zipOptions = {
     types: {

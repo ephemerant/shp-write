@@ -4,7 +4,7 @@ node example/zip/test_linestring.js
 var zip = require('../../src/zip'),
   fs = require('fs');
 
-var linestringGeojson = require('../../test/geojson/LineString.json');
+var linestringGeojson = require('../../test/geojson/LineString-2d-single.json');
 
 var zipOptions = {
   types: {
