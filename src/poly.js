@@ -62,27 +62,7 @@ module.exports.write = function writePoints(geometries, extent, shpView, shxView
 
         shpI += 56 + (noParts - 1) * 4;
 
-        var zMin = Number.MAX_VALUE;
-        var zMax = -Number.MAX_VALUE;
-        var mMin = Number.MAX_VALUE;
-        var mMax = -Number.MAX_VALUE;
         flattened.forEach(function writeLine(coords, i) {
-            if ((coords[2] || 0) < zMin) {
-                zMin = coords[2] || 0;
-            }
-
-            if ((coords[2] || 0) > zMax) {
-                zMax = coords[2] || 0;
-            }
-
-            if ((coords[3] || 0) < mMin) {
-                mMin = coords[3] || 0;
-            }
-
-            if ((coords[3] || 0) > mMax) {
-                mMax = coords[3] || 0;
-            }
-
             shpView.setFloat64(shpI, coords[0], true); // X
             shpView.setFloat64(shpI + 8, coords[1], true); // Y
 
@@ -91,8 +71,8 @@ module.exports.write = function writePoints(geometries, extent, shpView, shxView
 
         if (is3D) {
             // Write z value range
-            shpView.setFloat64(shpI, zMin, true);
-            shpView.setFloat64(shpI + 8, zMax, true);
+            shpView.setFloat64(shpI, featureExtent.zmin, true);
+            shpView.setFloat64(shpI + 8, featureExtent.zmax, true);
             shpI += 16
 
             // Write z values.
@@ -102,8 +82,8 @@ module.exports.write = function writePoints(geometries, extent, shpView, shxView
             });
 
             // Write m value range.
-            shpView.setFloat64(shpI, mMin, true);
-            shpView.setFloat64(shpI + 8, mMax, true);
+            shpView.setFloat64(shpI, featureExtent.mmin, true);
+            shpView.setFloat64(shpI + 8, featureExtent.mmax, true);
             shpI += 16;
 
             // Write m values;
