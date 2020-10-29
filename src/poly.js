@@ -1,26 +1,37 @@
 var ext = require('./extent'),
     types = require('./types');
 
-module.exports.write = function writePoints(geometries, extent, shpView, shxView, TYPE) {
-
+module.exports.write = function writePolyRecord(
+    geometries,
+    extent,
+    shpView,
+    shxView,
+    TYPE,
+) {
     var shpI = 0,
         shxI = 0,
         shxOffset = 100,
-        is3D = TYPE === types.geometries.POLYLINEZ || TYPE === types.geometries.POLYGONZ;
+        is3D =
+            TYPE === types.geometries.POLYLINEZ ||
+            TYPE === types.geometries.POLYGONZ;
 
-    geometries.forEach(writePolyLine);
+    // call for every polygon/polyline feature
+    geometries.forEach(writePoly);
 
-    function writePolyLine(coordinates, i) {
-
+    function writePoly(coordinates, i) {
         var flattened = justCoords(coordinates),
-            noParts = parts([coordinates], TYPE),
-            contentLength = (flattened.length * 16) + 48 + (noParts - 1) * 4;
+            noParts =
+                TYPE === types.geometries.POLYLINE ||
+                TYPE === types.geometries.POLYLINEZ
+                    ? parts([coordinates], TYPE)
+                    : parts(coordinates, TYPE), // Number of parts in this poly record
+            contentLength = flattened.length * 16 + 48 + (noParts - 1) * 4;
 
         if (is3D) {
             contentLength += 32 + flattened.length * 16;
         }
 
-        var featureExtent = flattened.reduce(function(extent, c) {
+        var featureExtent = flattened.reduce(function (extent, c) {
             return ext.enlarge(extent, c);
         }, ext.blank());
 
@@ -50,13 +61,17 @@ module.exports.write = function writePoints(geometries, extent, shpView, shxView
             }
             return arr;
         }, []);
+
         for (var p = 1; p < noParts; p++) {
-            shpView.setInt32( // set part index
-                shpI + 52 + (p * 4),
-                onlyParts.reduce(function (a, b, idx) {
-                    return idx < p ? a + b.length : a;
-                }, 0),
-                true
+            var result = onlyParts.reduce(function (a, b, idx) {
+                return idx < p ? a + b.length : a;
+            }, 0);
+
+            shpView.setInt32(
+                // set part index
+                shpI + 52 + p * 4,
+                result,
+                true,
             );
         }
 
@@ -73,10 +88,10 @@ module.exports.write = function writePoints(geometries, extent, shpView, shxView
             // Write z value range
             shpView.setFloat64(shpI, featureExtent.zmin, true);
             shpView.setFloat64(shpI + 8, featureExtent.zmax, true);
-            shpI += 16
+            shpI += 16;
 
             // Write z values.
-            flattened.forEach(function(p, i) {
+            flattened.forEach(function (p, i) {
                 shpView.setFloat64(shpI, p[2] || 0, true);
                 shpI += 8;
             });
@@ -87,7 +102,7 @@ module.exports.write = function writePoints(geometries, extent, shpView, shxView
             shpI += 16;
 
             // Write m values;
-            flattened.forEach(function(p, i) {
+            flattened.forEach(function (p, i) {
                 shpView.setFloat64(shpI, p[3] || 0, true);
                 shpI += 8;
             });
@@ -95,57 +110,58 @@ module.exports.write = function writePoints(geometries, extent, shpView, shxView
     }
 };
 
-module.exports.shpLength = function(geometries, TYPE) {
-    var flattened = justCoords(geometries);
-    var length = (geometries.length * 56) +
-        // points
-        (flattened.length * 16);
-    
-    if (TYPE === types.geometries.POLYLINEZ || TYPE === types.geometries.POLYGONZ) {
-        length += 32 + flattened.length * 16;
-    }
+module.exports.shpLength = function (geometries, TYPE) {
+    var no = 0;
 
-    return length
+    var is3D =
+        TYPE === types.geometries.POLYLINEZ ||
+        TYPE === types.geometries.POLYGONZ;
+
+    // loop through every feature
+    geometries.forEach(function (feature, i) {
+        // this is looking at each record
+        var noParts = feature.length;
+        var flattened = justCoords(feature);
+        var length = 44 + 4 * noParts + 16 * flattened.length + 8; // 2D length
+
+        if (is3D) {
+            length += 16 + 8 * flattened.length + (16 + 8 * flattened.length);
+        }
+
+        no += length;
+    });
+
+    return no;
 };
 
-module.exports.shxLength = function(geometries) {
+module.exports.shxLength = function (geometries) {
     return geometries.length * 8;
 };
 
-module.exports.extent = function(coordinates) {
-    return justCoords(coordinates).reduce(function(extent, c) {
+module.exports.extent = function (coordinates) {
+    return justCoords(coordinates).reduce(function (extent, c) {
         return ext.enlarge(extent, c);
     }, ext.blank());
 };
 
 function parts(geometries, TYPE) {
-    var no = 1;
-    if (TYPE === types.geometries.POLYGON || TYPE === types.geometries.POLYLINE || TYPE === types.geometries.POLYGONZ || TYPE === types.geometries.POLYLINEZ) {
-        no = geometries.reduce(function (no, coords) {
-            no += coords.length;
-            if (Array.isArray(coords[0][0][0])) { // multi
-                no += coords.reduce(function (no, rings) {
-                    return no + rings.length - 1; // minus outer
-                }, 0);
-            }
-            return no;
-        }, 0);
-    }
-    return no;
+    return geometries.length;
 }
 
 module.exports.parts = parts;
 
 function totalPoints(geometries) {
     var sum = 0;
-    geometries.forEach(function(g) { sum += g.length; });
+    geometries.forEach(function (g) {
+        sum += g.length;
+    });
     return sum;
 }
 
 function justCoords(coords, l) {
     if (l === undefined) l = [];
     if (typeof coords[0][0] == 'object') {
-        return coords.reduce(function(memo, c) {
+        return coords.reduce(function (memo, c) {
             Array.prototype.push.apply(memo, justCoords(c));
             return memo;
         }, l);
@@ -154,3 +170,4 @@ function justCoords(coords, l) {
     }
 }
 
+module.exports.justCoords = justCoords;

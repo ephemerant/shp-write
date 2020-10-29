@@ -9,24 +9,26 @@ module.exports.multilineZ = justType('MultiLineString', 'POLYLINEZ', true);
 module.exports.polygon = justType('Polygon', 'POLYGON', false);
 module.exports.polygonZ = justType('Polygon', 'POLYGONZ', true);
 
+// type - geojson geometry type
+// TYPE - SHP geometry type
 function justType(type, TYPE, just3D) {
-    return function(gj) { 
-        var oftype = gj.features.filter(isType(type));        
+    return function(gj) {
+        var oftype = gj.features.filter(isType(type));
         var ofDimension = oftype.filter(isOfDimension(TYPE, just3D));
         var geometries;
         var properties;
-        
+
         if (type === 'MultiLineString' || type === 'MultiPoint') {
-            var multiGeometries = ofDimension.map(justCoordsMulti);            
+            var multiGeometries = ofDimension.map(justCoordsMulti);
             geometries = [].concat.apply([], multiGeometries);
-            
+
             var multiProperties = ofDimension.map(justPropsMulti);
             properties = [].concat.apply([], multiProperties);
         } else {
-            geometries = (TYPE === 'POLYGON' || TYPE === 'POLYLINE' || TYPE === 'POLYGONZ' || TYPE === 'POLYLINEZ') ? [ofDimension.map(justCoords)] : ofDimension.map(justCoords),
+            geometries = ofDimension.map(justCoords);
             properties = ofDimension.map(justProps);
         }
-        
+
         return {
             geometries: geometries,
             properties: properties,
@@ -39,7 +41,7 @@ function justCoords(t) {
     return t.geometry.coordinates;
 }
 
-function justCoordsMulti(t) {    
+function justCoordsMulti(t) {
     return t.geometry.coordinates.map(function(coords) {
         return [coords];
     });
@@ -51,11 +53,11 @@ function justProps(t) {
 
 function justPropsMulti(t) {
     var propsArr = [];
-    
-    t.geometry.coordinates.forEach(function() {        
+
+    t.geometry.coordinates.forEach(function() {
         propsArr.push(t.properties);
     });
-    
+
     return propsArr;
 }
 
