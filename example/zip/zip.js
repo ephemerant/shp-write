@@ -5,19 +5,29 @@ node example/zip/zip.js
 var zip = require('../../src/zip'),
   fs = require('fs');
 
-var linestringGeojson = require('../../test/geojson/LineString.json');
-var linestringZGeojson = require('../../test/geojson/LineStringZ.json');
-var multiPointGeojson = require('../../test/geojson/MultiPoint.json');
-var multiPointZGeojson = require('../../test/geojson/MultiPointZ.json');
-var multiLineStringGeojson = require('../../test/geojson/MultiLineString.json');
-var multiLineStringZGeojson = require('../../test/geojson/MultiLineStringZ.json');
-var multiPolygonGeojson = require('../../test/geojson/MultiPolygon.json');
-var multiPolygonZGeojson = require('../../test/geojson/MultiPolygonZ.json');
-var pointGeojson = require('../../test/geojson/Point.json');
-var pointZGeojson = require('../../test/geojson/PointZ.json');
-var polygonGeojson = require('../../test/geojson/Polygon.json');
-var polygonZGeojson = require('../../test/geojson/PolygonZ.json');
-var multiplePolygonsBugGeojson = require('../../test/geojson/multiplePolygonsZ.json');
+var linestring2dMultipleGeojson = require('../../test/geojson/LineString-2d-multiple.json');
+var linestring2dsingleGeojson = require('../../test/geojson/LineString-2d-single.json');
+var linestring3dMultipleGeojson = require('../../test/geojson/LineString-3d-multiple.json');
+var linestring3dsingleGeojson = require('../../test/geojson/LineString-3d-single.json');
+
+var multiLineString2dMultipleGeojson = require('../../test/geojson/MultiLineString-2d-multiple.json');
+var multiLineString3dMultipleGeojson = require('../../test/geojson/MultiLineString-3d-multiple.json');
+
+// var multiPoint2dSingleGeojson = require('../../test/geojson/MultiPoint-2d-single.json');
+// var multiPoint3dSingleGeojson = require('../../test/geojson/MultiPoint-3d-single.json');
+
+// var multiPolygon2dSingleGeojson = require('../../test/geojson/MultiPolygon-2d-single.json');
+// var multiPolygon3dSingleGeojson = require('../../test/geojson/MultiPolygon-3d-single.json');
+
+var point2dSingleGeojson = require('../../test/geojson/Point-2d-single.json');
+var point3dMultipleGeojson = require('../../test/geojson/Point-3d-single.json');
+var point3dSingleGeojson = require('../../test/geojson/Point-3d-multiple.json');
+
+var polygon2dMultipleRingsGeojson = require('../../test/geojson/Polygon-2d-multiple-rings.json');
+var polygon2dMultipleGeojson = require('../../test/geojson/Polygon-2d-multiple.json');
+var polygon2dSingleGeojson = require('../../test/geojson/Polygon-2d-single.json');
+var polygon3dMultipleGeojson = require('../../test/geojson/Polygon-3d-multiple.json');
+var polygon3dSingleGeojson = require('../../test/geojson/Polygon-3d-single.json');
 
 var zipOptions = {
   types: {
@@ -30,163 +40,210 @@ var zipOptions = {
   },
 };
 
-const lineString = zip(linestringGeojson, zipOptions);
-const lineStringZ = zip(linestringZGeojson, zipOptions);
-const multiPoint = zip(multiPointGeojson, zipOptions);
-const multiPointZ = zip(multiPointZGeojson, zipOptions);
-const multiLineString = zip(multiLineStringGeojson, zipOptions);
-const multiLineStringZ = zip(multiLineStringZGeojson, zipOptions);
-const multiPolygon = zip(multiPolygonGeojson, zipOptions);
-const multiPolygonZ = zip(multiPolygonZGeojson, zipOptions);
-const point = zip(pointGeojson, zipOptions);
-const pointZ = zip(pointZGeojson, zipOptions);
-const polygon = zip(polygonGeojson, zipOptions);
-const polygonZ = zip(polygonZGeojson, zipOptions);
-const multiplePolygonsBugZ = zip(multiplePolygonsBugGeojson, zipOptions);
+const linestring2dMultiple = zip(linestring2dMultipleGeojson, zipOptions);
+const linestring2dsingle = zip(linestring2dsingleGeojson, zipOptions);
+const linestring3dMultiple = zip(linestring3dMultipleGeojson, zipOptions);
+const linestring3dsingle = zip(linestring3dsingleGeojson, zipOptions);
+
+const multiLineString2dMultiple = zip(multiLineString2dMultipleGeojson, zipOptions);
+const multiLineString3dMultiple = zip(multiLineString3dMultipleGeojson, zipOptions);
+
+// const multiPoint2dSingle = zip(multiPoint2dSingleGeojson, zipOptions);
+// const multiPoint3dSingle = zip(multiPoint3dSingleGeojson, zipOptions);
+
+// const multiPolygon2dSingle = zip(multiPolygon2dSingleGeojson, zipOptions);
+// const multiPolygon3dSingle = zip(multiPolygon3dSingleGeojson, zipOptions);
+
+const point2dSingle = zip(point2dSingleGeojson, zipOptions);
+const point3dMultiple = zip(point3dMultipleGeojson, zipOptions);
+const point3dSingle = zip(point3dSingleGeojson, zipOptions);
+
+const polygon2dMultipleRings = zip(polygon2dMultipleRingsGeojson, zipOptions);
+const polygon2dMultiple = zip(polygon2dMultipleGeojson, zipOptions);
+const polygon2dSingle = zip(polygon2dSingleGeojson, zipOptions);
+const polygon3dMultiple = zip(polygon3dMultipleGeojson, zipOptions);
+const polygon3dSingle = zip(polygon3dSingleGeojson, zipOptions);
 
 Promise.all([
-  lineString,
-  lineStringZ,
-  multiPoint,
-  multiPointZ,
-  multiLineString,
-  multiLineStringZ,
-  multiPolygon,
-  multiPolygonZ,
-  point,
-  pointZ,
-  polygon,
-  polygonZ,
-  multiplePolygonsBugZ,
+    linestring2dMultiple,
+    linestring2dsingle,
+    linestring3dMultiple,
+    linestring3dsingle,
+    multiLineString2dMultiple,
+    multiLineString3dMultiple,
+    // multiPoint2dSingle,
+    // multiPoint3dSingle,
+    // multiPolygon2dSingle,
+    // multiPolygon3dSingle,
+    point2dSingle,
+    point3dMultiple,
+    point3dSingle,
+    polygon2dMultipleRings,
+    polygon2dMultiple,
+    polygon2dSingle,
+    polygon3dMultiple,
+    polygon3dSingle,
 ]).then(
   ([
-    lineStringBase64String,
-    lineStringZBase64String,
-    multiPointBase64String,
-    multiPointZBase64String,
-    multiLineStringBase64String,
-    multiLineStringZBase64String,
-    multiPolygonBase64String,
-    multiPolygonZBase64String,
-    pointBase64String,
-    pointZBase64String,
-    polygonBase64String,
-    polygonZBase64String,
-    multiplePolygonsBugZBase64String,
+    linestring2dMultipleString,
+    linestring2dsingleString,
+    linestring3dMultipleString,
+    linestring3dsingleString,
+    multiLineString2dMultipleString,
+    multiLineString3dMultipleString,
+    // multiPoint2dSingleString,
+    // multiPoint3dSingleString,
+    // multiPolygon2dSingleString,
+    // multiPolygon3dSingleString,
+    point2dSingleString,
+    point3dMultipleString,
+    point3dSingleString,
+    polygon2dMultipleRingsString,
+    polygon2dMultipleString,
+    polygon2dSingleString,
+    polygon3dMultipleString,
+    polygon3dSingleString,
   ]) => {
+      // TODO: finish renamin
     fs.writeFile(
-      'LineString.shp.zip',
-      lineStringBase64String,
+      'LineString2dMultiple.shp.zip',
+      linestring2dMultipleString,
       { encoding: 'base64' },
       function (err) {
         if (err) {
           console.log('Error', err);
         } else {
-          console.log('LineString File created');
+          console.log('LineString2dMultiple File created');
         }
       },
     );
 
     fs.writeFile(
-      'LineStringZ.shp.zip',
-      lineStringZBase64String,
+      'LineString2dSingle.shp.zip',
+      linestring2dsingleString,
       { encoding: 'base64' },
       function (err) {
         if (err) {
           console.log('Error', err);
         } else {
-          console.log('LineStringZ File created');
+          console.log('LineString2dSingle File created');
         }
       },
     );
 
     fs.writeFile(
-      'MultiPoint.shp.zip',
-      multiPointBase64String,
+        'linestring3dMultipleString.shp.zip',
+        linestring3dMultipleString,
+        { encoding: 'base64' },
+        function (err) {
+          if (err) {
+            console.log('Error', err);
+          } else {
+            console.log('linestring3dMultipleString File created');
+          }
+        },
+      );
+
+      fs.writeFile(
+        'linestring3dSingleString.shp.zip',
+        linestring3dsingleString,
+        { encoding: 'base64' },
+        function (err) {
+          if (err) {
+            console.log('Error', err);
+          } else {
+            console.log('linestring3dSingleString File created');
+          }
+        },
+      );
+
+      fs.writeFile(
+        'MultiLineString2dMultiple.shp.zip',
+        multiLineString2dMultipleString,
+        { encoding: 'base64' },
+        function (err) {
+          if (err) {
+            console.log('Error', err);
+          } else {
+            console.log('MultiLineString2dMultiple File created');
+          }
+        },
+      );
+
+      fs.writeFile(
+        'MultiLineString3dMultiple.shp.zip',
+        multiLineString3dMultipleString,
+        { encoding: 'base64' },
+        function (err) {
+          if (err) {
+            console.log('Error', err);
+          } else {
+            console.log('MultiLineString3dMultiple File created');
+          }
+        },
+      );
+
+    fs.writeFile(
+      'MultiPoint2dSingle.shp.zip',
+      multiPoint2dSingleString,
       { encoding: 'base64' },
       function (err) {
         if (err) {
           console.log('Error', err);
         } else {
-          console.log('MultiPoint File created');
+          console.log('MultiPoint2dSingle File created');
         }
       },
     );
 
     fs.writeFile(
-      'MultiPointZ.shp.zip',
-      multiPointZBase64String,
+      'MultiPoint3dSingle.shp.zip',
+      multiPoint3dSingleString,
       { encoding: 'base64' },
       function (err) {
         if (err) {
           console.log('Error', err);
         } else {
-          console.log('MultiPointZ File created');
+          console.log('MultiPoint3dSingle File created');
         }
       },
     );
 
     fs.writeFile(
-      'MultiLineString.shp.zip',
-      multiLineStringBase64String,
+      'MultiPolygon2dSingle.shp.zip',
+      multiPolygon2dSingleString,
       { encoding: 'base64' },
       function (err) {
         if (err) {
           console.log('Error', err);
         } else {
-          console.log('MultiLineString File created');
+          console.log('MultiPolygon2dSingle File created');
         }
       },
     );
 
     fs.writeFile(
-      'MultiLineStringZ.shp.zip',
-      multiLineStringZBase64String,
+      'MultiPolygon3dSingle.shp.zip',
+      multiPolygon3dSingleString,
       { encoding: 'base64' },
       function (err) {
         if (err) {
           console.log('Error', err);
         } else {
-          console.log('MultiLineStringZ File created');
+          console.log('MultiPolygon3dSingle File created');
         }
       },
     );
 
     fs.writeFile(
-      'MultiPolygon.shp.zip',
-      multiPolygonBase64String,
+      'Point2dSingle.shp.zip',
+      point2dSingleString,
       { encoding: 'base64' },
       function (err) {
         if (err) {
           console.log('Error', err);
         } else {
-          console.log('MultiPolygon File created');
-        }
-      },
-    );
-
-    fs.writeFile(
-      'MultiPolygonZ.shp.zip',
-      multiPolygonZBase64String,
-      { encoding: 'base64' },
-      function (err) {
-        if (err) {
-          console.log('Error', err);
-        } else {
-          console.log('MultiPolygonZ File created');
-        }
-      },
-    );
-
-    fs.writeFile(
-      'Point.shp.zip',
-      pointBase64String,
-      { encoding: 'base64' },
-      function (err) {
-        if (err) {
-          console.log('Error', err);
-        } else {
-          console.log('Point File created');
+          console.log('Point2dSingle File created');
         }
       },
     );
@@ -205,40 +262,92 @@ Promise.all([
     );
 
     fs.writeFile(
-      'Polygon.shp.zip',
-      polygonBase64String,
+        'Point3dMultiple.shp.zip',
+        point3dMultipleString,
+        { encoding: 'base64' },
+        function (err) {
+          if (err) {
+            console.log('Error', err);
+          } else {
+            console.log('Point3dMultiple File created');
+          }
+        },
+      );
+
+      fs.writeFile(
+        'Point3dSingle.shp.zip',
+        point3dSingleString,
+        { encoding: 'base64' },
+        function (err) {
+          if (err) {
+            console.log('Error', err);
+          } else {
+            console.log('Point3dSingle File created');
+          }
+        },
+      );
+
+    fs.writeFile(
+      'Polygon2dMultipleRings.shp.zip',
+      polygon2dMultipleRingsString,
       { encoding: 'base64' },
       function (err) {
         if (err) {
           console.log('Error', err);
         } else {
-          console.log('Polygon File created');
+          console.log('Polygon2dMultipleRings File created');
         }
       },
     );
 
     fs.writeFile(
-      'PolygonZ.shp.zip',
-      polygonZBase64String,
+      'Polygon2dMultiple.shp.zip',
+      polygon2dMultipleString,
       { encoding: 'base64' },
       function (err) {
         if (err) {
           console.log('Error', err);
         } else {
-          console.log('PolygonZ File created');
+          console.log('Polygon2dMultiple File created');
         }
       },
     );
 
     fs.writeFile(
-      'multiplePolygonsBugZ.shp.zip',
-      multiplePolygonsBugZBase64String,
+        'Polygon2dSingle.shp.zip',
+        polygon2dSingleString,
+        { encoding: 'base64' },
+        function (err) {
+          if (err) {
+            console.log('Error', err);
+          } else {
+            console.log('Polygon2dSingle File created');
+          }
+        },
+      );
+
+      fs.writeFile(
+        'Polygon3dMultiple.shp.zip',
+        polygon3dMultipleString,
+        { encoding: 'base64' },
+        function (err) {
+          if (err) {
+            console.log('Error', err);
+          } else {
+            console.log('Polygon3dMultiple File created');
+          }
+        },
+      );
+
+    fs.writeFile(
+      'Polygon3dSingle.shp.zip',
+      polygon3dSingleString,
       { encoding: 'base64' },
       function (err) {
         if (err) {
           console.log('Error', err);
         } else {
-          console.log('multiplePolygonsBugZ File created');
+          console.log('Polygon3dSingle File created');
         }
       },
     );
