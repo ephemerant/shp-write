@@ -1,5 +1,5 @@
 /*
-node example/zip/test_multilinestring.js
+node example/zip/multiLineString.js
 */
 var zip = require('../../src/zip'),
     fs = require('fs');

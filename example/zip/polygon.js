@@ -1,5 +1,5 @@
 /*
-node example/zip/test_polygon.js
+node example/zip/polygon.js
 */
 var zip = require('../../src/zip'),
   fs = require('fs');

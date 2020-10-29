@@ -1,5 +1,5 @@
 /*
-node example/zip/test_multilinestringZ.js
+node example/zip/multiLineStringZ.js
 */
 // ! broken
 var zip = require('../../src/zip'),

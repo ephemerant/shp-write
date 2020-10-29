@@ -1,5 +1,5 @@
 /*
-node example/zip/test_zip.js
+node example/zip/zip.js
 */
 // this could be simplified
 var zip = require('../../src/zip'),

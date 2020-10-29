@@ -1,5 +1,5 @@
 /*
-node example/zip/test_multi_pointZ.js
+node example/zip/multiPointZ.js
 */
 // ! broken
 var zip = require('../../src/zip'),

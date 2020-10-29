@@ -1,5 +1,5 @@
 /*
-node example/zip/test_multi_point.js
+node example/zip/multiPoint.js
 */
 var zip = require('../../src/zip'),
     fs = require('fs');

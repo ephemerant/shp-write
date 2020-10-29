@@ -1,5 +1,5 @@
 /*
-node example/zip/test_linestring.js
+node example/zip/linestring.js
 */
 var zip = require('../../src/zip'),
   fs = require('fs');

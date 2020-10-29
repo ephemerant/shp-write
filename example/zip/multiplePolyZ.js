@@ -1,5 +1,5 @@
 /*
-node example/zip/test_multiple_polyZ.js
+node example/zip/multiplePolyZ.js
 */
 // ! broken
 var zip = require('../../src/zip'),
