@@ -1,5 +1,3 @@
-[![Build Status](https://secure.travis-ci.org/mapbox/shp-write.svg?branch=master)](http://travis-ci.org/mapbox/shp-write)
-
 # shp-write
 
 Writes shapefile in pure javascript. Uses [dbf](https://github.com/tmcw/dbf)
@@ -20,7 +18,8 @@ Or in a browser
 
 * Requires a capable fancy modern browser with [Typed Arrays](http://caniuse.com/#feat=typedarrays)
   support
-* Geometries: Point, PointZ, MultiPoint, MultiPointZ, LineString, LineStringZ, Polygon, PolygonZ, MultiLineString, MultiPolygon
+* Supported Geojson Geometries: Point, LineString, MultiLineString, Polygon
+* Unsupported Geojson Geometries: MultiPoint, MultiPolygon
 * Tabular-style properties export with Shapefile's field name length limit
 * Uses jsZip for ZIP files, but [compression is buggy](https://github.com/Stuk/jszip/issues/53) so it uses STORE instead of DEFLATE.
 
@@ -93,6 +92,27 @@ arrays, generate a shapfile and call the callback with `err` and an object with
 Generate a ArrayBuffer of a zipped shapefile, dbf, and prj, from a GeoJSON
 object.
 
+## Testing
+
+### Write
+
+Run `node ./example/write/write.js` to generate shp, shx, dbf, files of every geometry type.
+
+Run `node ./example/write/linestring.js` to generate shp, shx, dbf, files for a linestring.
+
+### Zip
+
+Run `node ./example/zip/zip.js` to generate example zips of every geometry type.
+
+Run `node ./example/zip/linestring.js` to generate a zip for a linestring.
+
+### Test geojson files
+
+The files are named with the following format.
+`${geojson geometry type}-${dimensionality}-${single or multiple features in feature collection?}`
+
+The idea here is to provide a comprehensive list of geojson featureCollections that are supported
+
 ## Other Implementations
 
 * https://code.google.com/p/pyshp/
@@ -104,3 +124,4 @@ object.
 ## Contributors
 
 * Nick Baugh <niftylettuce@gmail.com>
+* Ryan Sims <dulldrums09@gmail.com>
