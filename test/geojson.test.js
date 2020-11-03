@@ -55,54 +55,54 @@ describe('geojson', function () {
     });
 
     // Multipoint is currently not supported
-    // describe('#multipoint', function () {
-    //     it('should return coordinates, properties, and type', function () {
-    //         const result = geojson.multipoint(gjMultiPoint);
+    describe('#multipoint', function () {
+        it.skip('should return coordinates, properties, and type', function () {
+            const result = geojson.multipoint(gjMultiPoint);
 
-    //         const idealResult = {
-    //             geometries: [
-    //                 [[2.2945064306259155, 48.85825817805569]],
-    //                 [[2.312525510787964, 48.854991630542706]],
-    //             ],
-    //             properties: [
-    //                 {
-    //                     name: 'MultiPoint-Name',
-    //                 },
-    //                 {
-    //                     name: 'MultiPoint-Name',
-    //                 },
-    //             ],
-    //             type: 'MULTIPOINT',
-    //         };
+            const idealResult = {
+                geometries: [
+                    [[2.2945064306259155, 48.85825817805569]],
+                    [[2.312525510787964, 48.854991630542706]],
+                ],
+                properties: [
+                    {
+                        name: 'MultiPoint-Name',
+                    },
+                    {
+                        name: 'MultiPoint-Name',
+                    },
+                ],
+                type: 'MULTIPOINT',
+            };
 
-    //         expect(result).to.eql(idealResult);
-    //     });
-    // });
+            expect(result).to.eql(idealResult);
+        });
+    });
 
     // Multipoint is currently not supported
-    // describe('#multipointZ', function () {
-    //     it.skip('should return coordinates, properties, and type', function () {
-    //         const result = geojson.multipointZ(gjMultiPointZ);
+    describe('#multipointZ', function () {
+        it.skip('should return coordinates, properties, and type', function () {
+            const result = geojson.multipointZ(gjMultiPointZ);
 
-    //         const idealResult = {
-    //             geometries: [
-    //                 [[2.2945064306259155, 48.85825817805569, 75]],
-    //                 [[2.312525510787964, 48.854991630542706, 5]],
-    //             ],
-    //             properties: [
-    //                 {
-    //                     name: 'MultiPointZ-Name',
-    //                 },
-    //                 {
-    //                     name: 'MultiPointZ-Name',
-    //                 },
-    //             ],
-    //             type: 'MULTIPOINTZ',
-    //         };
+            const idealResult = {
+                geometries: [
+                    [[2.2945064306259155, 48.85825817805569, 75]],
+                    [[2.312525510787964, 48.854991630542706, 5]],
+                ],
+                properties: [
+                    {
+                        name: 'MultiPointZ-Name',
+                    },
+                    {
+                        name: 'MultiPointZ-Name',
+                    },
+                ],
+                type: 'MULTIPOINTZ',
+            };
 
-    //         expect(result).to.eql(idealResult);
-    //     });
-    // });
+            expect(result).to.eql(idealResult);
+        });
+    });
 
     describe('#linestring', function () {
         it('should return coordinates, properties, and type', function () {
