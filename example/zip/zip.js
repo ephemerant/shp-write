@@ -25,16 +25,16 @@ function geojsonZipHelper(geojson, fileName) {
             if (err) {
                 console.log('Error', err);
             } else {
-                console.log('File created');
+                console.log(`${fileName} created`);
             }
         });
     });
 }
 
-var linestring2dMultipleGeojson = require('../../test/geojson/LineString-2d-multiple.json');
-var linestring2dSingleGeojson = require('../../test/geojson/LineString-2d-single.json');
-var linestring3dMultipleGeojson = require('../../test/geojson/LineString-3d-multiple.json');
-var linestring3dSingleGeojson = require('../../test/geojson/LineString-3d-single.json');
+var lineString2dMultipleGeojson = require('../../test/geojson/LineString-2d-multiple.json');
+var lineString2dSingleGeojson = require('../../test/geojson/LineString-2d-single.json');
+var lineString3dMultipleGeojson = require('../../test/geojson/LineString-3d-multiple.json');
+var lineString3dSingleGeojson = require('../../test/geojson/LineString-3d-single.json');
 
 var multiLineString2dMultipleGeojson = require('../../test/geojson/MultiLineString-2d-multiple.json');
 var multiLineString3dMultipleGeojson = require('../../test/geojson/MultiLineString-3d-multiple.json');
@@ -58,10 +58,10 @@ var polygon3dSingleGeojson = require('../../test/geojson/Polygon-3d-single.json'
 
 
 // write ZIP files
-geojsonZipHelper(linestring2dMultipleGeojson, 'LineString2dMultiple.shp.zip');
-geojsonZipHelper(linestring2dSingleGeojson, 'LineString2dSingle.shp.zip');
-geojsonZipHelper(linestring3dMultipleGeojson, 'Linestring3dMultipleString.shp.zip');
-geojsonZipHelper(linestring3dSingleGeojson, 'Linestring3dSingleString.shp.zip');
+geojsonZipHelper(lineString2dMultipleGeojson, 'LineString2dMultiple.shp.zip');
+geojsonZipHelper(lineString2dSingleGeojson, 'LineString2dSingle.shp.zip');
+geojsonZipHelper(lineString3dMultipleGeojson, 'LineString3dMultiple.shp.zip');
+geojsonZipHelper(lineString3dSingleGeojson, 'LineString3dSingle.shp.zip');
 
 geojsonZipHelper(multiLineString2dMultipleGeojson, 'MultiLineString2dMultiple.shp.zip');
 geojsonZipHelper(multiLineString3dMultipleGeojson, 'MultiLineString3dMultiple.shp.zip');
@@ -74,8 +74,8 @@ geojsonZipHelper(multiLineString3dMultipleGeojson, 'MultiLineString3dMultiple.sh
 
 geojsonZipHelper(point2dMultipleGeojson, 'Point2dMultiple.shp.zip');
 geojsonZipHelper(point2dSingleGeojson, 'Point2dSingle.shp.zip');
-geojsonZipHelper(point3dMultipleGeojson, 'PointZ.shp.zip');
-geojsonZipHelper(point3dSingleGeojson, 'Point3dMultiple.shp.zip');
+geojsonZipHelper(point3dMultipleGeojson, 'Point3dMultiple.shp.zip');
+geojsonZipHelper(point3dSingleGeojson, 'Point3dSingle.shp.zip');
 
 geojsonZipHelper(polygon2dMultipleGeojson, 'Polygon2dMultiple.shp.zip');
 geojsonZipHelper(polygon2dSingleGeojson, 'Polygon2dSingle.shp.zip');
