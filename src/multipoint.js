@@ -14,6 +14,7 @@ module.exports.write = function writePoints(
 
   coordinates.forEach(writeMultipoint);
 
+  // write a single Multipoint Record
   function writeMultipoint(coords, i) {
     // Length of multipoint record
     var contentLength = 40 + coords.length * 16;
@@ -111,11 +112,14 @@ module.exports.shxLength = function (coordinates) {
   return coordinates.length * 8;
 };
 
+// coordinates.length: number of records
+// flattened.length: total number of points in all records
 module.exports.shpLength = function (coordinates, TYPE) {
   var flattened = justCoords(coordinates);
   var length = coordinates.length * 48 + flattened.length * 16;
+
   if (TYPE === types.geometries.MULTIPOINTZ) {
-    length += 32 + flattened.length * 16;
+    length += coordinates.length * 32 + flattened.length * 16;
   }
 
   return length;

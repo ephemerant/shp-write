@@ -18,6 +18,7 @@ module.exports.write = function writePolyRecord(
     // call for every polygon/polyline feature
     geometries.forEach(writePoly);
 
+    // write a single Polygon Record
     function writePoly(coordinates, i) {
         var flattened = justCoords(coordinates),
             noParts =
