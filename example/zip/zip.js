@@ -36,12 +36,16 @@ var lineString2dSingleGeojson = require('../../test/geojson/LineString-2d-single
 var lineString3dMultipleGeojson = require('../../test/geojson/LineString-3d-multiple.json');
 var lineString3dSingleGeojson = require('../../test/geojson/LineString-3d-single.json');
 
+// edge case worth testing
 var multiLineString2dMultipleGeojson = require('../../test/geojson/MultiLineString-2d-multiple.json');
 var multiLineString3dMultipleGeojson = require('../../test/geojson/MultiLineString-3d-multiple.json');
 
-// These examples are commented out, as MultiPoint and MultiPolygon are currently not supported
-// var multiPoint2dSingleGeojson = require('../../test/geojson/MultiPoint-2d-single.json');
-// var multiPoint3dSingleGeojson = require('../../test/geojson/MultiPoint-3d-single.json');
+var multiPoint2dMultipleGeojson = require('../../test/geojson/MultiPoint-2d-multiple.json');
+var multiPoint2dSingleGeojson = require('../../test/geojson/MultiPoint-2d-single.json');
+var multiPoint3dMultipleGeojson = require('../../test/geojson/MultiPoint-3d-multiple.json');
+var multiPoint3dSingleGeojson = require('../../test/geojson/MultiPoint-3d-single.json');
+
+// These examples are commented out, as MultiPolygons are currently not supported
 // var multiPolygon2dSingleGeojson = require('../../test/geojson/MultiPolygon-2d-single.json');
 // var multiPolygon3dSingleGeojson = require('../../test/geojson/MultiPolygon-3d-single.json');
 
@@ -63,12 +67,16 @@ geojsonZipHelper(lineString2dSingleGeojson, 'LineString2dSingle.shp.zip');
 geojsonZipHelper(lineString3dMultipleGeojson, 'LineString3dMultiple.shp.zip');
 geojsonZipHelper(lineString3dSingleGeojson, 'LineString3dSingle.shp.zip');
 
+// edge case worth testing
 geojsonZipHelper(multiLineString2dMultipleGeojson, 'MultiLineString2dMultiple.shp.zip');
 geojsonZipHelper(multiLineString3dMultipleGeojson, 'MultiLineString3dMultiple.shp.zip');
 
-// These examples are commented out, as MultiPoint and MultiPolygon are currently not supported
-// geojsonZipHelper(multiPoint2dSingleGeojson, 'MultiPoint2dSingle.shp.zip');
-// geojsonZipHelper(multiPoint3dSingleGeojson, 'MultiPoint3dSingleString.shp.zip');
+geojsonZipHelper(multiPoint2dMultipleGeojson, 'MultiPoint2dMultiple.shp.zip');
+geojsonZipHelper(multiPoint2dSingleGeojson, 'MultiPoint2dSingle.shp.zip');
+geojsonZipHelper(multiPoint3dMultipleGeojson, 'MultiPoint3dMultiple.shp.zip');
+geojsonZipHelper(multiPoint3dSingleGeojson, 'MultiPoint3dSingle.shp.zip');
+
+// These examples are commented out, as MultiPolygons are currently not supported
 // geojsonZipHelper(multiPolygon2dSingleGeojson, 'MultiPolygon2dSingleString.shp.zip');
 // geojsonZipHelper(multiPolygon3dSingleGeojson, 'MultiPolygon3dSingleString.shp.zip');
 

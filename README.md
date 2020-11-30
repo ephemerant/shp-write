@@ -18,8 +18,8 @@ Or in a browser
 
 * Requires a capable fancy modern browser with [Typed Arrays](http://caniuse.com/#feat=typedarrays)
   support
-* Supported Geojson Geometries: Point, LineString, MultiLineString, Polygon
-* Unsupported Geojson Geometries: MultiPoint, MultiPolygon
+* Supported Geojson Geometries: Point, LineString, MultiLineString, MultiPoint, Polygon
+* Unsupported Geojson Geometries: MultiPolygon
 * Tabular-style properties export with Shapefile's field name length limit
 * Uses jsZip for ZIP files, but [compression is buggy](https://github.com/Stuk/jszip/issues/53) so it uses STORE instead of DEFLATE.
 
@@ -77,7 +77,7 @@ converts convertible features into Shapefiles and triggers a download.
 
 Given data, an array of objects for each row of data, geometry, the OGC standard
 geometry type (like `POINT`), geometries, a list of geometries as bare coordinate
-arrays, generate a shapfile and call the callback with `err` and an object with
+arrays, generate a shapefile and call the callback with `err` and an object with
 
 ```js
 {
