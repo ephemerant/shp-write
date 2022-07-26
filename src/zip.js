@@ -47,7 +47,10 @@ module.exports = function(gj, options) {
     });
 
     var generateOptions = { 
-        compression:'STORE', 
+        compression: "DEFLATE",
+        compressionOptions: {
+            level: 1
+        },
         type: (options && options.type) || 'base64'
     };
 
